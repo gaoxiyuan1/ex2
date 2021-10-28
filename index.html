@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="js/pixi.min.js"></script>
+    <script>
+		var app = new PIXI.Application(433,303);
+        document.body.appendChild(app.view);
+        var bg = new PIXI.Sprite.fromImage("res/bg.png");
+        app.stage.addChild(bg);
+		var game = new PIXI.Sprite.fromImage("res/game.png");
+		game.x=25;
+		game.y=20;
+		game.visible=false;
+		bg.addChild(game);
+		bg.interactive = true;
+		bg.on("click",gameshow);
+		function gameshow(){
+			game.visible=true;
+		}
+		var rules = new PIXI.Text("游戏规则");
+		game.addChild(rules);
+		rules.text="游戏规则";
+		rules.style.fill =0x000000;
+		rules.x=140;
+		rules.y=20;
+		var content = new PIXI.Text("内容");
+		game.addChild(content);
+		content.text="  本关规则：选出正确答案，即可胜利,\n\n首次成功,可获得额外金币奖励，可兑换\n\n皮肤，船只外观等奖励。";
+		content.style.fill =0x000000;
+		content.x=50;
+		content.y = 70;
+		content.scale.x=0.6;
+		content.scale.y=0.6;
+		var btn = new PIXI.Sprite.fromImage("res/btn.png");
+		game.addChild(btn);
+		btn.x=100;
+		btn.y=165;
+		var btn5 = new PIXI.Sprite.fromImage("res/btn.png");//btn5:左面按钮背景
+		game.addChild(btn5);
+		btn5.visible=false;
+		var btn1 = new PIXI.Text("11");
+		game.addChild(btn1);
+		btn1.text="我知道了，开始";
+		btn1.style.fill =0xffffff;
+		btn1.x=117;
+		btn1.y =175;
+		btn1.scale.x=0.7;
+		btn1.scale.y=0.7;
+		
+		
+		var btn2 = new PIXI.Sprite.fromImage("res/btn.png");//btn2：右面按钮背景
+		game.addChild(btn2);
+		btn2.visible=false;
+		var btnreturn = new PIXI.Sprite.fromImage("res/btn.png");//btnreturn：返回按钮
+		game.addChild(btnreturn);
+		btnreturn.visible=false;
+		var btn3 = new PIXI.Text("1");//btn3:左面文字意大利
+		game.addChild(btn3);
+		btn3.visible=false;
+		var btn4 = new PIXI.Text("1");//btn4:右面文字法国
+		game.addChild(btn4);
+		btn4.visible=false;
+		var mark = 0;
+		btn1.interactive = true;
+		btn1.on("click",issue);
+		function issue(){
+			mark = 3;
+			if(mark==3){
+				rules.text="   游  戏";
+				content.text="文艺复兴最早起源于哪个国家？"
+				content.scale.x=0.8;
+				content.scale.y=0.8;
+				btn1.visible=false;
+				btn.visible=false;
+				btn5.visible=true;
+				btn5.x=50;
+				btn5.y=130;
+				btn5.scale.x=0.7;
+				btn5.scale.y=0.9;
+				btn2.visible=true;
+				btn2.scale.x=0.7;
+				btn2.scale.y=0.9;
+				btn2.x=210;
+				btn2.y=130;
+				btn3.visible=true;
+				btn3.text="意大利";
+				btn3.style.fill =0xffffff;
+				btn3.x=70;
+				btn3.y=143;
+				btn3.scale.x=0.8;
+				btn3.scale.y=0.8;
+				btn4.visible=true;
+				btn4.text="法 国";
+				btn4.style.fill =0xffffff;
+				btn4.x=238;
+				btn4.y=143;
+				btn4.scale.x=0.8;
+				btn4.scale.y=0.8;
+				mark = 0;
+			}
+			
+		}
+		
+		btn3.interactive = true;
+		btn3.on("click",btnfun);
+		btn4.interactive=true;
+		btn4.on("click",btnagain);
+		btnreturn.interactive=true;
+		btnreturn.on("click",return1);
+		function btnfun(){
+			mark = 1;
+			if(mark == 1){
+				btn2.visible=false;
+				btn4.visible=false;
+				bg.visible=true;
+				game.visible=true;
+				btn5.visible=false;
+				btnreturn.visible=true;
+				btn3.visible=true;
+				
+				rules.text="恭喜你，挑战成功";
+				rules.x=90;
+				content.x=20;
+				content.text="        尊贵的客人，你的才智令我折服，\n\n现在，请领取宝物";
+				btnreturn.x=120;
+				btnreturn.y=150;
+				btnreturn.scale.x=0.7;
+				btnreturn.scale.y=0.9;
+				btn3.text="领  取";
+				btn3.x=145;
+				btn3.y=165;
+				btn3.style.fill =0xffffff;
+				mark=0;
+				}
+				
+			}
+		function return1(){
+			mark=4;
+			if(mark==4){
+			game.visible=false;
+			btn2.visible=false;
+			btn3.visible=false;
+			btn3.visible=false;
+			btn5.visible=false;
+			btnreutrn.visible=false;
+			mark=0;
+			}
+		}
+		function btnagain(){
+			mark=2;
+			if(mark==2){
+				btn5.visible=true;
+				btn2.visible=false;
+				btn3.visible=false;
+				btnreturn.visible=true;
+				rules.text="很遗憾，挑战失败";
+				rules.x=80;
+				content.text="      很遗憾，挑战失败。您可以选择再次\n\n挑战或离开。"
+				content.x=10;
+				content.y=60;
+				content.scale.x=0.7;
+				content.scale.y=0.7;
+				btn1.visible=true;
+				btn1.text="再次挑战";
+				btn1.style.fill=0xffffff;
+				btn1.scale.x=0.8;
+				btn1.scale.y=0.8;
+				btn1.x=70;
+				btn1.y=143;
+				btnreturn.scale.x=0.7;
+				btnreturn.scale.y=0.9;
+				btnreturn.x=210;
+				btnreturn.y=130;
+				btn4.text="遗憾离场";
+				btn4.scale.x=0.8;
+				btn4.scale.y=0.8;
+				btn4.x=225;
+			    mark=0;
+				}
+			}
+		</script>
+</body>
+</html>
